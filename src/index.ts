@@ -22,6 +22,20 @@ type Email = {
     body?: string;
 };
 
+const BLACKLIST: string[] = [
+    'wp@wp.pl'
+];
+
+function filterEmails(emails: Email[], from: string[]): Email[] {
+    const emailRegex = /<([^>]+)>/;
+
+    return emails.filter(email => {
+        const match = email.from?.match(emailRegex);
+        const emailAddress = match ? match[1] : null;
+        return emailAddress && from.includes(emailAddress);
+    });
+}
+
 async function fetchLastEmails() {
     const imap = new Imap(imapConfig);
 
@@ -36,7 +50,7 @@ async function fetchLastEmails() {
 
     const fetchEmails = (box: Imap.Box): Promise<Email[]> => {
         return new Promise((resolve, reject) => {
-            const count = 0;
+            const count = 1;
             const fetchOptions = {
                 bodies: 'HEADER.FIELDS (FROM TO SUBJECT DATE)',
                 struct: true,
@@ -115,8 +129,10 @@ async function fetchLastEmails() {
                 console.log('Fetching emails...');
                 const emails = await fetchEmails(box);
 
-                console.log('Removing emails...');
-                await removeEmails(emails);
+                const to_remove = filterEmails(emails, BLACKLIST);
+
+                console.log('Removing ' + to_remove.length + ' emails...');
+                await removeEmails(to_remove);
 
                 console.log('Last Emails:', emails);
 
