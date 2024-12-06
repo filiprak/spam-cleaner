@@ -1,9 +1,9 @@
-import { fetchLastEmails } from './dist/index';
+import { clearSpam } from './dist/index';
 
 export const handler = async (event) => {
     let msg = '';
     try {
-        await fetchLastEmails();
+        await clearSpam();
         msg = 'OK';
     }
     catch (error) {
