@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.mjs",
   "scripts": {
+    "zip": "npm run build && 7z a -tzip release.zip ./",
     "build": "npm run clean && tsc",
     "clean": "rm -rf ./dist/*",
     "start": "npm run build && node ./dist/index.js",
