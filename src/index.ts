@@ -22,7 +22,7 @@ type Email = {
     body?: string;
 };
 
-const BUFFER = 100;
+const BUFFER = 25;
 const BLACKLIST: string[] = [
     'wp@wp.pl'
 ];
