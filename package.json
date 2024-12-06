@@ -1,7 +1,7 @@
 {
   "name": "spam-cleaner",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "index.mjs",
   "scripts": {
     "build": "npm run clean && tsc",
     "clean": "rm -rf ./dist/*",
@@ -13,9 +13,11 @@
   "license": "ISC",
   "description": "",
   "dependencies": {
-    "@types/node-imap": "^0.9.3",
     "dotenv": "^16.4.7",
-    "node-imap": "^0.9.6",
+    "node-imap": "^0.9.6"
+  },
+  "devDependencies": {
+    "@types/node-imap": "^0.9.3",
     "typescript": "^5.7.2"
   }
 }
