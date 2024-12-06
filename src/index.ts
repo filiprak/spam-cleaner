@@ -37,7 +37,7 @@ function filterEmails(emails: Email[], from: string[]): Email[] {
     });
 }
 
-async function fetchLastEmails() {
+export async function clearSpam() {
     const imap = new Imap(imapConfig);
 
     const openInbox = (): Promise<Imap.Box> => {
@@ -151,11 +151,3 @@ async function fetchLastEmails() {
         imap.connect();
     });
 }
-
-(async () => {
-    try {
-        await fetchLastEmails();
-    } catch (error) {
-        console.error('Error fetching emails:', error);
-    }
-})();
