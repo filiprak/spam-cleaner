@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "main": "index.mjs",
   "scripts": {
+    "release": "npm run zip && aws lambda update-function-code --function-name spam-cleaner --zip-file fileb://release.zip",
     "zip": "npm run build && 7z a -tzip release.zip ./",
     "build": "npm run clean && tsc",
     "clean": "rm -rf ./dist/*",

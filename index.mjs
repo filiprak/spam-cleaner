@@ -1,4 +1,4 @@
-import { clearSpam } from './dist/index';
+import { clearSpam } from './dist/index.js';
 
 export const handler = async (event) => {
     let msg = '';
