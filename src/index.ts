@@ -22,6 +22,7 @@ type Email = {
     body?: string;
 };
 
+const BUFFER = 50;
 const BLACKLIST: string[] = [
     'wp@wp.pl'
 ];
@@ -50,7 +51,6 @@ async function fetchLastEmails() {
 
     const fetchEmails = (box: Imap.Box): Promise<Email[]> => {
         return new Promise((resolve, reject) => {
-            const count = 1;
             const fetchOptions = {
                 bodies: 'HEADER.FIELDS (FROM TO SUBJECT DATE)',
                 struct: true,
@@ -58,7 +58,7 @@ async function fetchLastEmails() {
 
             console.log('Total: ' + box.messages.total);
 
-            const fetch = imap.seq.fetch((box.messages.total - count) + ':*', fetchOptions);
+            const fetch = imap.seq.fetch((box.messages.total - BUFFER) + ':*', fetchOptions);
             const messages: Email[] = [];
 
             fetch.on('message', (msg) => {
@@ -128,13 +128,10 @@ async function fetchLastEmails() {
 
                 console.log('Fetching emails...');
                 const emails = await fetchEmails(box);
-
                 const to_remove = filterEmails(emails, BLACKLIST);
 
-                console.log('Removing ' + to_remove.length + ' emails...');
+                console.log(`Removing (${to_remove.length}/${emails.length}) emails...`);
                 await removeEmails(to_remove);
-
-                console.log('Last Emails:', emails);
 
                 imap.end();
                 resolve(emails);
