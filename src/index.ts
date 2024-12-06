@@ -58,7 +58,7 @@ async function fetchLastEmails() {
 
             console.log('Total: ' + box.messages.total);
 
-            const fetch = imap.seq.fetch((box.messages.total - BUFFER) + ':*', fetchOptions);
+            const fetch = imap.seq.fetch((box.messages.total - (BUFFER - 1)) + ':*', fetchOptions);
             const messages: Email[] = [];
 
             fetch.on('message', (msg) => {
