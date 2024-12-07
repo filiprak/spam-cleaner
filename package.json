@@ -1,7 +1,7 @@
 {
   "name": "spam-cleaner",
   "version": "1.0.0",
-  "main": "index.mjs",
+  "main": "./dist/index.js",
   "scripts": {
     "release": "npm run zip && aws lambda update-function-code --function-name spam-cleaner --zip-file fileb://release.zip",
     "zip": "npm run build && rm ./release.zip -rf && 7z a -tzip release.zip ./",
@@ -16,9 +16,11 @@
   "description": "",
   "dependencies": {
     "dotenv": "^16.4.7",
+    "express": "^4.21.2",
     "node-imap": "^0.9.6"
   },
   "devDependencies": {
+    "@types/express": "^5.0.0",
     "@types/node-imap": "^0.9.3",
     "typescript": "^5.7.2"
   }
