@@ -10,6 +10,7 @@ const imapConfig: Imap.Config = {
     authTimeout: 15000, // Timeout for authentication
     // debug: console.log,
 };
+const ENV_BLACKLIST = (process.env.IMAP_FROM_BLACKLIST || '').split(',');
 
 type Email = {
     uid?: string,
@@ -19,8 +20,8 @@ type Email = {
     body?: string;
 };
 
-const BUFFER = 25;
-const BLACKLIST: string[] = [
+const BUFFER = process.env.IMAP_BUFFER || 25;
+const BLACKLIST: string[] = ENV_BLACKLIST.length > 0 ? ENV_BLACKLIST : [
     'wp@wp.pl'
 ];
 
@@ -99,7 +100,7 @@ export async function clearSpam() {
                     if (err) {
                         reject(err);
                     } else {
-                        console.log(`Message with UID ${email.uid} marked for deletion.`);
+                        console.log(`Message with UID ${email.uid}, FROM ${email.from} marked for deletion.`);
                         resolve();
                     }
                 });
