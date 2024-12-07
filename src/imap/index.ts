@@ -20,7 +20,7 @@ type Email = {
     body?: string;
 };
 
-const BUFFER = process.env.IMAP_BUFFER || 25;
+const BUFFER = parseInt(process.env.IMAP_BUFFER || '') || 25;
 const BLACKLIST: string[] = ENV_BLACKLIST.length > 0 ? ENV_BLACKLIST : [
     'wp@wp.pl'
 ];
