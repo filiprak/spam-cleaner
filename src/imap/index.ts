@@ -10,7 +10,6 @@ const imapConfig: Imap.Config = {
     authTimeout: 15000, // Timeout for authentication
     // debug: console.log,
 };
-const ENV_BLACKLIST = (process.env.IMAP_FROM_BLACKLIST || '').split(',');
 
 type Email = {
     uid?: string,
@@ -21,9 +20,7 @@ type Email = {
 };
 
 const BUFFER = parseInt(process.env.IMAP_BUFFER || '') || 25;
-const BLACKLIST: string[] = ENV_BLACKLIST.length > 0 ? ENV_BLACKLIST : [
-    'wp@wp.pl'
-];
+const BLACKLIST: string[] = (process.env.IMAP_FROM_BLACKLIST || '').split(',');
 
 function filterEmails(emails: Email[], from: string[]): Email[] {
     const emailRegex = /<([^>]+)>/;
