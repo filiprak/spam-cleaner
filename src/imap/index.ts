@@ -126,6 +126,7 @@ export async function clearSpam() {
                 const to_remove = filterEmails(emails, BLACKLIST);
 
                 console.log(`Removing (${to_remove.length}/${emails.length}) emails...`);
+                console.log(`Blacklist (${BLACKLIST.length}): ${BLACKLIST.join(', ')}`);
                 await removeEmails(to_remove);
 
                 imap.end();
