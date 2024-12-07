@@ -10,7 +10,7 @@ app.get('/', async (req, res) => {
 
     res.send({
         message: [
-            `Removed (${removed.length}/${emails.length}) emails...`,
+            `Filtered (${removed.length}/${emails.length}) emails from inbox...`,
         ],
     })
 })
