@@ -20,7 +20,7 @@ type Email = {
 };
 
 const BUFFER = parseInt(process.env.IMAP_BUFFER || '') || 25;
-const BLACKLIST: string[] = (process.env.IMAP_FROM_BLACKLIST || '').split(',');
+const BLACKLIST: string[] = (process.env.IMAP_FROM_BLACKLIST || '').split(',').filter(i => !!i);
 
 function filterEmails(emails: Email[], from: string[]): Email[] {
     const emailRegex = /<([^>]+)>/;
