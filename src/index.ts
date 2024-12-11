@@ -1,17 +1,15 @@
 import './config';
 import express from 'express';
-import { clearSpam } from './imap';
+import { fork } from 'child_process';
 
 const app = express()
 const port = process.env.PORT || 8080;
 
 app.get('/', async (req, res) => {
-    const { emails, removed } = await clearSpam();
+    fork('./worker.js');
 
     res.send({
-        message: [
-            `Filtered (${removed.length}/${emails.length}) emails from inbox...`,
-        ],
+        message: `Started cleaner worker...`,
     })
 })
 
